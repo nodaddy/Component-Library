@@ -1,0 +1,1 @@
+change version in package.json before 'npm publish'
