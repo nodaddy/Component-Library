@@ -1,0 +1,31 @@
+{
+    "env": {
+      "browser": true,
+      "es2021": true
+    },
+    "extends": ["eslint:recommended", "plugin:react/recommended", "plugin:react-hooks/recommended"],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 12,
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "tsx": true
+      }
+    },
+    "plugins": ["react", "react-hooks", "@typescript-eslint", "jest"],
+    "rules": {
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": ["error"]
+    },
+    "overrides": [
+      {
+        "files": [
+          "**/*.test.ts", // for jest globals to be recognised by eslint in test files
+          "**/*.test.tsx" // for jest globals to be recognised by eslint in test files
+        ],
+        "env": {
+          "jest": true // for jest globals to be recognised by eslint
+        }
+      }
+    ]
+} 
