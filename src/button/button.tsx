@@ -4,14 +4,14 @@ import Stitches from "@stitches/react";
 import { MouseEvent } from "react";
 
 const StyledButton = styled("button", {
-  padding: "$2 $3",
+  // width and height will only be as that of text content + padding, user can't increase the width beyond that, supporting minimalistic design aproach
+  padding: "$2 calc($2 + $3)",
   fontSize: "$2",
   borderWidth: "$1",
-  cursor: "pointer",
   borderRadius: "$2",
-  background: "var(--background-color)",
+  background: "$background",
   borderColor: "$shadow",
-  color: "var(--text-color)",
+  color: "$primary",
   boxShadow: "$2",
   variants: {
     type: {
@@ -43,6 +43,7 @@ interface StyledButtonOwnProps {
   label: string;
   onClick: (e: MouseEvent<HTMLButtonElement>) => any;
   theme?: "default" | "dark";
+  loading?: boolean;
 }
 
 // extract variants from StyledButton component. This ensures your variants support responsive syntax.
@@ -51,16 +52,29 @@ type ButtonWrapVariants = Stitches.VariantProps<typeof StyledButton>;
 type StyledButtonProps = StyledButtonOwnProps & ButtonWrapVariants;
 
 const Button: FC<StyledButtonProps> = (props: StyledButtonProps) => {
-  const { theme, label, onClick } = props;
+  const { theme, label, onClick, loading } = props;
   return (
-    <StyledButton
-      data-testid="button"
-      {...props}
-      onClick={onClick}
-      className={targetTheme(theme)}
-    >
-      {label}
-    </StyledButton>
+    <>
+      {/* create a separate component called 'Loading', with similar css */}
+      { loading && <div style={{
+          height: '6px',
+          position: 'fixed',
+          top: '0px',
+          zIndex: '99999',
+          width: '100vw',
+          backgroundColor: 'blue',
+        }} />
+      }
+      <StyledButton
+        data-testid="button"
+        {...props}
+        onClick={onClick}
+        className={targetTheme(theme)}
+        disabled={loading}
+      >
+        {label}
+      </StyledButton>
+    </>
   );
 };
 
