@@ -1,6 +1,6 @@
 change version in package.json before 'npm publish',
 
-Setup in place: 
+Project setup/technology stack: 
     - eslint
     - unit testing with jest and rtl
     - storybook
